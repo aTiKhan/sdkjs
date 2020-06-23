@@ -20285,7 +20285,7 @@
 
 	WorksheetView.prototype.insertSlicers = function (arr) {
 		var t = this;
-		var type, name;
+		var type, name, pivotTable;
 
 		var callback = function (success) {
 			if (!success) {
@@ -20295,7 +20295,7 @@
 
 			//добавляем в структуру
 			for (var i = 0; i < arr.length; i++) {
-				var slicer = t.model.insertSlicer(arr[i], name, type);
+				var slicer = t.model.insertSlicer(arr[i], name, type, pivotTable);
 				arr[i] = slicer.name;
 			}
 			t.objectRender.addSlicers(arr);
@@ -20320,8 +20320,15 @@
 					lockRanges.push(colRange);
 				}
 			}
-		} else if (false/*obj = getPivotByactiveCell*/) {
-			type = window['AscCommonExcel'].insertSlicerType.pivotTable;
+		} else {
+			var ar = this.model.selectionRange.getLast().clone();
+			//pivot
+			if (Asc.CT_pivotTableDefinition.prototype.asc_filterByCell) {
+				pivotTable = this.model.inPivotTable(ar);
+				if (pivotTable) {
+					type = window['AscCommonExcel'].insertSlicerType.pivotTable;
+				}
+			}
 		}
 
 		if (needAddFilter) {
@@ -20439,6 +20446,7 @@
 					break;
 				}
 				case window['AscCommonExcel'].insertSlicerType.pivotTable: {
+					slicerCache.applyPivotFilter(this.model.workbook.oApi, val, null, false);
 					break;
 				}
 			}
