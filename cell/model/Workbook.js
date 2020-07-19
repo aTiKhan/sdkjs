@@ -7705,7 +7705,7 @@
 	};
 	Worksheet.prototype.getPivotTableByDataRef = function(dataRef) {
 		return this.forEachPivotCache(undefined, function(cacheDefinition){
-			if (dataRef === cacheDefinition.asc_getDataRef()) {
+			if (dataRef === cacheDefinition.getDataRef()) {
 				return cacheDefinition;
 			}
 		});
