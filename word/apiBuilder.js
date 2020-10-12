@@ -337,6 +337,16 @@
 	};
 
 	/**
+	 * Get the type of this class.
+	 * @typeofeditors ["CDE"]
+	 * @returns {"range"}
+	 */
+	ApiRange.prototype.GetClassType = function()
+	{
+		return "range"
+	};
+
+	/**
 	 * Get a paragraph from all paragraphs that are in the range
 	 * @param {Number} nPos - position 
 	 * @return {ApiParagraph | null} - returns null if position is invalid.
@@ -11653,6 +11663,7 @@
 	ApiDocumentContent.prototype["RemoveElement"]    = ApiDocumentContent.prototype.RemoveElement;
 	ApiDocumentContent.prototype["GetRange"]         = ApiDocumentContent.prototype.GetRange;
 
+	ApiRange.prototype["GetClassType"]               = ApiRange.prototype.GetClassType;
 	ApiRange.prototype["GetParagraph"]               = ApiRange.prototype.GetParagraph;
 	ApiRange.prototype["AddText"]                    = ApiRange.prototype.AddText;
 	ApiRange.prototype["AddBookmark"]                = ApiRange.prototype.AddBookmark;
